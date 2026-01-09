@@ -95,6 +95,10 @@ To isolate the impact, I ran a micro-benchmark across common vocabulary sizes. T
 ## Interpretation
 The results show a consistent ~2x speedup in the sampling logic. While the absolute time saved per token is in microseconds (e.g., ~94μs for Qwen 2.5), it eliminates a linear overhead that scales with vocabulary size.
 
+For long generation runs (thousands of tokens), this compounds into meaningful wall-clock savings.
+
 Optimization is often just about not doing unnecessary work.
 
-
+---
+Jay Zenith
+[jayzenith248@gmail.com)] | [github.com/JayZenith](github.com/JayZenith) | [linkedin.com/in/jay-zenith](linkedin.com/in/jay-zenith)
