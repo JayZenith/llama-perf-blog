@@ -1,4 +1,3 @@
-docs/index.md
 ---
 title: How I Got 1.91× Faster Sampling in llama.cpp
 ---
