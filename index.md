@@ -8,7 +8,7 @@ I found a small performance issue in llama.cpp that sits directly on the critica
 
 It was a redundant O(vocab) heap allocation on every call
 
-[Pull request:](https://github.com/ggml-org/llama.cpp/pull/18365)
+[https://github.com/ggml-org/llama.cpp/pull/18365](https://github.com/ggml-org/llama.cpp/pull/18365)
 ---
 
 ## The Problem
