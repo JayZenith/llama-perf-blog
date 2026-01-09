@@ -6,9 +6,9 @@ title: How I Got 1.91× Faster Sampling in llama.cpp
 
 I found a small performance issue in llama.cpp that sits directly on the critical path of generation: **token sampling**.
 
-It was a redundant O(vocab) heap allocation on every call
+It was a redundant O(vocab) heap allocation on every call.
 
-[https://github.com/ggml-org/llama.cpp/pull/18365](https://github.com/ggml-org/llama.cpp/pull/18365)
+Pull request:[https://github.com/ggml-org/llama.cpp/pull/18365](https://github.com/ggml-org/llama.cpp/pull/18365)
 ---
 
 ## The Problem
