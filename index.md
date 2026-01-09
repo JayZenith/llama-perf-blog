@@ -100,4 +100,4 @@ For long generation runs (thousands of tokens), this compounds into meaningful w
 Optimization is often just about not doing unnecessary work.
 
 ---
-Jay Zenith| jayzenith248@gmail.com | [github.com/JayZenith](github.com/JayZenith) | [linkedin.com/in/jay-zenith](linkedin.com/in/jay-zenith)
+Jay Zenith| jayzenith248@gmail.com | [github.com/JayZenith](github.com/JayZenith)
