@@ -8,9 +8,7 @@ I found a small performance issue in llama.cpp that sits directly on the critica
 
 It was a redundant O(vocab) heap allocation on every call
 
-Pull request:
-`https://github.com/ggml-org/llama.cpp/pull/18365`
-
+[Pull request:](https://github.com/ggml-org/llama.cpp/pull/18365)
 ---
 
 ## The Problem
@@ -21,7 +19,8 @@ While studying `llama_sampler_sample()`, I noticed a TODO:
 
 The code showed why: each generated token rebuilds a `std::vector<llama_token_data>` of size `n_vocab` shown here:
 
-```cpp // llama-sampling.cpp (Before) llama_token llama_sampler_sample(struct llama_sampler * smpl, struct llama_context * ctx, int32_t idx) { // ... std::vector<llama_token_data> cur; cur.reserve(n_vocab); // Redundant O(vocab) allocation // ... }
+```cpp
+ // llama-sampling.cpp (Before) llama_token llama_sampler_sample(struct llama_sampler * smpl, struct llama_context * ctx, int32_t idx) { // ... std::vector<llama_token_data> cur; cur.reserve(n_vocab); // Redundant O(vocab) allocation // ... }
 ```
 
 That means that for a ~150k vocab model, we allocate and fill a ~150k-element vector **once per token generated**. If you generate hundreds or thousands of tokens, this becomes a steady stream of heap traffic in one of the hottest loops in the system.
@@ -35,11 +34,13 @@ I found this by reading the sampling pipeline end-to-end. The model produces log
 ## The Solution
 The sampler used by the CLI is typically a **sampler chain**: a pipeline of sampling stages applied in order on each token. GDB confirms the chain uses a vtable to dispatch the `apply` operation:
 
-```gdb (gdb) print *smpl->iface 
+```gdb
+ (gdb) print *smpl->iface 
 $4 = { 
     ... apply = 0x7ffff77de758 <llama_sampler_chain_apply(llama_sampler*, llama_token_data_array*)>,
      ... 
 }
+```
 
 The chain simply iterates through the sampling stages:
 
