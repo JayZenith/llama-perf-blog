@@ -8,7 +8,7 @@ I found a small performance issue in llama.cpp that sits directly on the critica
 
 It was a redundant O(vocab) heap allocation on every call.
 
-Pull request:[https://github.com/ggml-org/llama.cpp/pull/18365](https://github.com/ggml-org/llama.cpp/pull/18365)
+<small>Pull request: [https://github.com/ggml-org/llama.cpp/pull/18365](https://github.com/ggml-org/llama.cpp/pull/18365)</small>
 ---
 
 ## The Problem
@@ -94,8 +94,6 @@ To isolate the impact, I ran a micro-benchmark across common vocabulary sizes. T
 
 ## Interpretation
 The results show a consistent ~2x speedup in the sampling logic. While the absolute time saved per token is in microseconds (e.g., ~94μs for Qwen 2.5), it eliminates a linear overhead that scales with vocabulary size.
-
-For long generation runs (thousands of tokens), this compounds into meaningful wall-clock savings.
 
 Optimization is often just about not doing unnecessary work.
 
